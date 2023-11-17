@@ -4,7 +4,6 @@
     margin-bottom: 20px;
     width: 100%;
   }
-
   .turing-tape{
     display: flex;
     flex-direction: column;
