@@ -3,17 +3,18 @@ import PropTypes from 'prop-types'
 import './TuringTape.css'
 
 const TuringTape = ({ steps, result }) => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [tapeContent, setTapeContent] = useState([]);
-  const [headPosition, setHeadPosition] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0); //guarda el paso actual
+  const [tapeContent, setTapeContent] = useState([]); //guarda el contenido de la cinta
+  const [headPosition, setHeadPosition] = useState(0); //guarda la posicion de la cabeza
 
+  //cada vez que cambia el paso actual
   useEffect(() => {
-    console.log("result",steps)
-    if (steps && steps.length > 0 && currentStep < steps.length) {
-      const step = steps[currentStep];
-      console.log("step",step)
-      // Extract information from the step string
-      const { tape, position, state } = parseStep(step);
+    if (steps && steps.length > 0 && currentStep < steps.length) { //si hay pasos y el paso actual es menor a la cantidad de pasos
+      const step = steps[currentStep]; //guardamos el paso actual
+      //ej Paso actual: State: qAccept, Tape: 100001_, Head Position: 6
+
+      // extraemos la información de la cinta y la posicion de la cabeza
+      const { tape, position } = parseStep(step);
       setTapeContent(tape);
 
       setHeadPosition(position);
@@ -23,8 +24,7 @@ const TuringTape = ({ steps, result }) => {
   }, [currentStep, steps]);
 
   const parseStep = (step) => {
-    // Implement logic to parse the step string and extract tape content and head position
-    // Example: 'State: s1, Tape: 1001B, Head Position: 1'
+    // Logica para extraer la información de la cinta, la posicion de la cabeza y el estado
     const tapeMatch = step.match(/Tape: ([0-1_]+)/);
     const positionMatch = step.match(/Head Position: (\d+)/);
     const stateMatch = step.match(/State: (\w+)/);
@@ -36,31 +36,31 @@ const TuringTape = ({ steps, result }) => {
   };
 
   const onNextStep = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
+    if (currentStep < steps.length - 1) { 
+      setCurrentStep(currentStep + 1); //aumentamos el paso actual
     }
   };
 
   const onReload = () => {
-    window.location.reload();
+    window.location.reload(); //recargamos la pagina
   }
 
   return (
     <div className="turing-tape flex flex-col">
       <div className="tape flex flex-col w-full justify-center items-center">
         {console.log("tapeContent",tapeContent)}
-        <span className='font-bold'>State: {parseStep(steps[currentStep]).state}</span>
+        <span className='font-bold text-2xl p-4 text-white'>Estado: {parseStep(steps[currentStep]).state}</span>
         <div className="flex">
         {tapeContent.map((symbol, index) => (
-          <div key={index} className={`tape-cell ${index === headPosition ? 'head' : ''}`}>
+          <div key={index} className={`tape-cell ${index === headPosition ? 'head' : ''}`}> 
             {symbol}
           </div>
         ))}
         </div>
       </div>
       <div className="result ">
-        <span className='font-bold text-4xl text-white'>Result: </span>
-        <span className='font-bold text-4xl text-white'>
+        <span className='font-bold text-3xl text-white'>Resultado: </span>
+        <span className='font-bold text-3xl text-white'>
         {
         currentStep === steps.length - 1 ? (result ? 'Accepted' : 'Rejected') : '...'
         }
