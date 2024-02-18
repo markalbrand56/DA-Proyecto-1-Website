@@ -25,7 +25,7 @@ const TuringTape = ({ steps, result }) => {
 
   const parseStep = (step) => {
     // Logica para extraer la información de la cinta, la posicion de la cabeza y el estado
-    const tapeMatch = step.match(/Tape: ([0-1_]+)/);
+    const tapeMatch = step.match(/Tape: ([0-z]+)/);
     const positionMatch = step.match(/Head Position: (\d+)/);
     const stateMatch = step.match(/State: (\w+)/);
     return {
