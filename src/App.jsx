@@ -24,7 +24,7 @@ function App() {
   const [loading, setLoading] = useState(false); //controla el loading
   const [string , setString] = useState(''); //guarda la cadena
 
-  const API_URL = 'http://127.0.0.1:8000'
+  const API_URL = 'https://d-algoritmos-markalbrand56.koyeb.app'
 
   const fetchData = async () => {
     setLoading(true);
